@@ -7,6 +7,16 @@ Aegis GMS is a server-authoritative, permission-driven Roblox administration fra
 
 Aegis GMS is released under the MIT License. You may download, use, modify, and redistribute it subject to the licence terms. Public contributions are welcome through issues and pull requests. Security reports should follow `SECURITY.md`.
 
+## Download
+
+For a normal Roblox Studio installation, use the ZIP attached to the latest
+[GitHub Release](https://github.com/DarkMartha/Project-Aegis-GMS/releases/latest).
+The release ZIP is intentionally minimal and contains only the Studio package,
+the installation guide, and the licence.
+
+Developers who want the editable Rojo source, examples, and full documentation
+can use GitHub's **Code -> Download ZIP** option instead.
+
 ## Included
 
 - Twelve panel pages: Dashboard, Players, Moderation, Server, Messaging, Staff, Ranks, Logs, Analytics, Settings, Developer, and Modules.

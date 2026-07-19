@@ -15,7 +15,12 @@ Aegis GMS is a modular, server-authoritative administration framework for Roblox
 
 ## Installation
 
-Download the source archive or `AegisGMS_Studio_Package.rbxmx`, then follow the instructions in `README.md`.
+Download `Aegis_GMS_Roblox_Admin_Framework_v1.0.0.zip` from this release, extract
+it, and read `READ_ME_FIRST.md` before importing the Studio package. The release
+download intentionally contains only the files required for manual installation.
+
+The editable Rojo source and extended documentation remain available from the
+repository's **Code -> Download ZIP** option.
 
 Before publishing, configure trusted owners and any Roblox Group mappings in:
 

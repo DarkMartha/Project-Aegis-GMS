@@ -15,9 +15,17 @@ Keep access tokens private and never commit them to this project.
 9. Upload the contents of this folder, including the hidden `.github` directory.
 10. Commit the files to the `main` branch.
 11. Replace `OWNER` in `.github/ISSUE_TEMPLATE/config.yml` with the GitHub account or organisation name.
-12. Open **Releases**, choose **Draft a new release**, use tag `v1.0.0`, paste `RELEASE_NOTES_v1.0.0.md`, and attach `AegisGMS_Studio_Package.rbxmx` plus the source ZIP if desired.
+12. Open **Actions**, select **Build minimal release download**, choose **Run workflow**, and enter the release tag such as `v1.0.0`.
 
-Anyone can then download the source using GitHub's **Code → Download ZIP** button or download the Studio package from Releases.
+The workflow creates one release ZIP containing only:
+
+- `AegisGMS_Studio_Package.rbxmx`
+- `READ_ME_FIRST.md`
+- `LICENSE`
+
+It replaces an existing asset with the same name, so rerunning it safely updates
+the download without adding duplicate packages. GitHub's **Code -> Download ZIP**
+option remains available separately for developers who need the full source.
 
 ## Git command method
 

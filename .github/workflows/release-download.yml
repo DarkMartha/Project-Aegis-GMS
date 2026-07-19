@@ -1,0 +1,66 @@
+name: Build minimal release download
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing release tag to create or update
+        required: true
+        default: v1.0.0
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    name: Package required installation files
+    runs-on: ubuntu-latest
+    env:
+      RELEASE_TAG: ${{ inputs.tag || github.ref_name }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build and verify minimal ZIP
+        id: build
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ ! "$RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+([.-][0-9A-Za-z.-]+)?$ ]]; then
+            echo "Invalid release tag: $RELEASE_TAG" >&2
+            exit 1
+          fi
+
+          package_dir="dist/Aegis_GMS"
+          archive_name="Aegis_GMS_Roblox_Admin_Framework_${RELEASE_TAG}.zip"
+          mkdir -p "$package_dir"
+
+          cp AegisGMS_Studio_Package.rbxmx "$package_dir/"
+          cp .github/release/READ_ME_FIRST.md "$package_dir/READ_ME_FIRST.md"
+          cp LICENSE "$package_dir/"
+
+          (
+            cd dist
+            zip -9 -r "$archive_name" Aegis_GMS
+          )
+
+          mapfile -t packaged_files < <(unzip -Z1 "dist/$archive_name" | grep -v '/$')
+          if [[ "${#packaged_files[@]}" -ne 3 ]]; then
+            printf 'Expected exactly 3 files, found %s:\n' "${#packaged_files[@]}" >&2
+            printf '  %s\n' "${packaged_files[@]}" >&2
+            exit 1
+          fi
+
+          printf 'archive=dist/%s\n' "$archive_name" >> "$GITHUB_OUTPUT"
+
+      - name: Attach ZIP to GitHub release
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: ${{ env.RELEASE_TAG }}
+          files: ${{ steps.build.outputs.archive }}
+          fail_on_unmatched_files: true
+          overwrite_files: true
