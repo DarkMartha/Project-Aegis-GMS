@@ -1,0 +1,23 @@
+{
+  "name": "RobloxAdminFramework",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "AdminFramework": {
+        "$path": "src/ReplicatedStorage/AdminFramework"
+      }
+    },
+    "ServerScriptService": {
+      "AdminFramework": {
+        "$path": "src/ServerScriptService/AdminFramework"
+      }
+    },
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "AdminFrameworkClient": {
+          "$path": "src/StarterPlayer/StarterPlayerScripts/AdminFrameworkClient.client.lua"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+*.rbxl
+*.rbxlx
+*.rbxm
+.DS_Store
+rojo-session.lock

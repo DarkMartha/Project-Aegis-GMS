@@ -1,0 +1,35 @@
+name: Repository checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate required files and JSON
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f README.md
+          test -f LICENSE
+          test -f CHANGELOG.md
+          test -f default.project.json
+          test -f AegisGMS_Studio_Package.rbxmx
+          python -m json.tool default.project.json >/dev/null
+
+      - name: Check for obvious committed secrets
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -RInE --exclude-dir=.git --exclude='repository-checks.yml' '(ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]{20,}|ROBLOSECURITY|BEGIN (RSA|OPENSSH|EC) PRIVATE KEY)' .; then
+            echo 'Potential secret detected.' >&2
+            exit 1
+          fi
